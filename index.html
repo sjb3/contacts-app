@@ -12,14 +12,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
 
 <script type="text/babel">
-// Using pure JavaScript we use createElement to create a representation of our DOM node
-// React.createElement(component, [props], [...children])
+
 
 // Using ReactDOM, we insert our representation, called a "react element", into our DOM tree
 // ReactDOM.render(element, container, [callback])
 
+// We can save time and improve readability by using JSX
+// The included Babel transpiler will turn this into JS that uses createElement
+const contact = <div>Albert Einstein</div>;
+
 ReactDOM.render(
-  React.createElement('div', {}, 'Albert Einstein'),
+  contact,
   document.getElementById('root')
 )
 </script>
