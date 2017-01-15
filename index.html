@@ -13,16 +13,19 @@
 
 <script type="text/babel">
 
+// We can create a class when our component grows more complex
+class Contact extends React.Component {
 
-// Using ReactDOM, we insert our representation, called a "react element", into our DOM tree
-// ReactDOM.render(element, container, [callback])
-
-// We can save time and improve readability by using JSX
-// The included Babel transpiler will turn this into JS that uses createElement
-const contact = <div>Albert Einstein</div>;
+  // every component must have a render method
+  // render must return a react element (JSX gets turned into a react element)
+  render() {
+    return <div>Albert Einstein</div>;
+  }
+}
 
 ReactDOM.render(
-  contact,
+  // back to JS to demonstrate how to use a class
+  React.createElement(Contact),
   document.getElementById('root')
 )
 </script>
