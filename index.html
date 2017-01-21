@@ -2,26 +2,22 @@
 
 <h2>Contacts</h2>
 <div id="root"></div>
-<!-- Load Babel -->
+
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-
-<!-- exposed as React -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
-
-<!-- exposed as ReactDOM -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
 
 <script type="text/babel">
-
 class Contact extends React.Component {
   render() {
-    return <div>Albert Einstein</div>;
+    // Components have a "props" property. This is how we send data into a Component.
+    return <div>{this.props.name}</div>;
   }
 }
 
 ReactDOM.render(
-  // Using JSX we can put our Component inside angled brackets
-  <Contact />,
+  // An HTML attribute on a JSX element will show up in "this.props" in a Component
+  <Contact name="Albert Einstein" />,
   document.getElementById('root')
 )
 </script>
