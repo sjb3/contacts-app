@@ -7,21 +7,22 @@
 
 <script type="text/babel">
 class Contact extends React.Component {
-  render() {
-    return <div>{this.props.name}</div>;
-  }
+  render() { return <div>{this.props.name}</div>;}
 }
 
-// new component to contain all of our contacts
 class ContactList extends React.Component {
   render() {
+    // we want to sort a copy of the data, not the original source, so we use .slice() to copy
+    const sorted = this.props.contacts.slice().sort((a, b) => {
+      // A > B > S
+      return a.name > b.name;
+    })
     return (
       <div>
         <h2>Contacts List</h2>
         {
-          // this.props is an array so can map an array of objects to an array of Contacts
-          this.props.contacts.map(contact => {
-            // React needs help knowing which elements to re-render
+          // here use sorted instead of this.props.contacts
+          sorted.map(contact => {
             return <Contact name={contact.name} key={contact.name}/>
           })
         }
@@ -30,21 +31,14 @@ class ContactList extends React.Component {
   }
 }
 
-// here's the data source for our contacts list. we've added some fields we'll need later.
+// add another contact in the last position that when sorted will be in the second position
 const contacts = [
-  {
-    name: 'Albert Einstein',
-    planet: 'Earth',
-    isFavorite: true
-  }, {
-    name: 'Steve Jobs',
-    planet: 'Earth',
-    isFavorite: false
-  }
+  {name: 'Albert Einstein', planet: 'Earth', isFavorite: true},
+  {name: 'Steve Jobs', planet: 'Earth', isFavorite: false},
+  {name: 'Bob the Builder', planet: 'Earth', isFavorite: false}
 ];
 
 ReactDOM.render(
-  // pass in the list of contacts as an attribute/prop to the ContactList
   <ContactList contacts={contacts}/>,
   document.getElementById('root')
 )
