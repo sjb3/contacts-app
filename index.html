@@ -15,20 +15,37 @@ class Contact extends React.Component {
 // new component to contain all of our contacts
 class ContactList extends React.Component {
   render() {
-    // use parenthesis when returning over multiple lines
     return (
-      // only ONE root element can be returned
       <div>
         <h2>Contacts List</h2>
-        <Contact name="Albert Einstein" />
-        <Contact name="Steve Jobs" />  
+        {
+          // this.props is an array so can map an array of objects to an array of Contacts
+          this.props.contacts.map(contact => {
+            // React needs help knowing which elements to re-render
+            return <Contact name={contact.name} key={contact.name}/>
+          })
+        }
       </div>
     );
   }
 }
 
+// here's the data source for our contacts list. we've added some fields we'll need later.
+const contacts = [
+  {
+    name: 'Albert Einstein',
+    planet: 'Earth',
+    isFavorite: true
+  }, {
+    name: 'Steve Jobs',
+    planet: 'Earth',
+    isFavorite: false
+  }
+];
+
 ReactDOM.render(
-  <ContactList />,
+  // pass in the list of contacts as an attribute/prop to the ContactList
+  <ContactList contacts={contacts}/>,
   document.getElementById('root')
 )
 </script>
