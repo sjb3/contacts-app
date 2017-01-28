@@ -28,6 +28,14 @@ function reducer(state = initialState, action) {
         search: state.filters.search
       }
     })
+  // updates our state with our search value, to be used in render
+  case 'SET_SEARCH':
+    return Object.assign({}, state, {
+      filters: {
+        onlyEarth: state.filters.onlyEarth,
+        search: action.value
+      }
+    })
   default:
     return state;
   }
@@ -43,10 +51,18 @@ class ContactList extends React.Component {
   handleChange = (event) => {
     this.props.setEarthFilter(event.target.checked);
   }
+  setSearch = (event) => {
+    this.props.setSearch(event.target.value);
+  }
 
   render() {
-    const sorted = this.props.contacts.slice().sort((a, b) => a.name > b.name);
-    // filter contacts based on the value of our onlyEarth filter, and the contact's planet
+    // if search value is present, filter out results that don't match
+    const search = this.props.filters.search;
+    const matchSearch = this.props.contacts.filter(contact => {
+      return contact.name.toLowerCase().includes(search.toLowerCase());
+    });
+
+    const sorted = matchSearch.sort((a, b) => a.name > b.name);
     const filtered = sorted.filter(contact => {
       if (this.props.filters.onlyEarth) {
         return contact.planet === 'Earth' ? true : false;
@@ -55,10 +71,13 @@ class ContactList extends React.Component {
       }
     })
 
-    // map over "filtered" contacts instead of just "sorted"
+    // add text box for search
     return (
       <div>
         <h2>Contacts List</h2>
+        Search: 
+        <input type="text" value={this.props.filters.search} onChange={this.setSearch} />
+        <br />
         <input type="checkbox" checked={this.props.filters.onlyEarth} onChange={this.handleChange}/>
         Only Earth
         {filtered.map(contact => <Contact name={contact.name} key={contact.name}/>)}
@@ -68,11 +87,13 @@ class ContactList extends React.Component {
 }
 
 store.subscribe(() => {
+  // add setSearch action creator
   ReactDOM.render(
   <ContactList
     contacts={store.getState().contacts}
     filters={store.getState().filters}
     setEarthFilter={onlyEarth => store.dispatch({type: 'SET_FILTER', value: onlyEarth})}
+    setSearch={text => store.dispatch({type: 'SET_SEARCH', value: text})}
     />, document.getElementById('root'))
 });
 store.dispatch({type:'START'});
