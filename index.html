@@ -23,11 +23,8 @@ function reducer(state = initialState, action) {
     return Object.assign({}, state, { filters: { onlyEarth: state.filters.onlyEarth, search: action.value }})
   case 'ADD_FAVORITE':
     return Object.assign({}, state, { favorites: state.favorites.concat(action.contact) });
-  // when we want to add a contact, we create a new contact list with the old + the new
   case 'ADD_CONTACT':
-    return Object.assign({}, state, {
-      contacts: state.contacts.concat(action.contact)
-    })
+    return Object.assign({}, state, { contacts: state.contacts.concat(action.contact) })
   default:
     return state;
   }
@@ -41,16 +38,16 @@ const FavoriteList = ({contacts}) => (
   <div><h2>Favorites</h2>{contacts.map(contact => <Contact name={contact.name} key={contact.name}/>)}</div>
 );
 
-// this form handles all the logic for adding a new contact
 class NewContactForm extends React.Component {
   state = { name: '', planet: '' }
-  updateName = (event) => {
-    this.setState({ name: event.target.value });
-  }
-  updatePlanet = (event) => {
-    this.setState({ planet: event.target.value });
-  }
+  updateName = (event) => { this.setState({ name: event.target.value }); }
+  updatePlanet = (event) => { this.setState({ planet: event.target.value }); }
   addContact = () => {
+    // validation can be simple
+    const containsNumber = /\d+/.test(this.state.name);
+    if (containsNumber) {
+      return alert('contacts cannot contain numbers');
+    }
     this.props.addContact(this.state);
   }
   render() {
