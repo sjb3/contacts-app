@@ -23,18 +23,11 @@ function reducer(state = initialState, action) {
   switch (action.type) {
   case 'SET_FILTER':
     return Object.assign({}, state, {
-      filters: {
-        onlyEarth: action.value,
-        search: state.filters.search
-      }
+      filters: { onlyEarth: action.value, search: state.filters.search }
     })
-  // updates our state with our search value, to be used in render
   case 'SET_SEARCH':
     return Object.assign({}, state, {
-      filters: {
-        onlyEarth: state.filters.onlyEarth,
-        search: action.value
-      }
+      filters: { onlyEarth: state.filters.onlyEarth, search: action.value}
     })
   default:
     return state;
@@ -56,7 +49,6 @@ class ContactList extends React.Component {
   }
 
   render() {
-    // if search value is present, filter out results that don't match
     const search = this.props.filters.search;
     const matchSearch = this.props.contacts.filter(contact => {
       return contact.name.toLowerCase().includes(search.toLowerCase());
@@ -71,7 +63,7 @@ class ContactList extends React.Component {
       }
     })
 
-    // add text box for search
+    // using our filtered list and our original list we can show how many contacts are hidden
     return (
       <div>
         <h2>Contacts List</h2>
@@ -81,13 +73,13 @@ class ContactList extends React.Component {
         <input type="checkbox" checked={this.props.filters.onlyEarth} onChange={this.handleChange}/>
         Only Earth
         {filtered.map(contact => <Contact name={contact.name} key={contact.name}/>)}
+        {`${filtered.length} shown, ${this.props.contacts.length - filtered.length} hidden`}
       </div>
     );
   }
 }
 
 store.subscribe(() => {
-  // add setSearch action creator
   ReactDOM.render(
   <ContactList
     contacts={store.getState().contacts}
