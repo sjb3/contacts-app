@@ -14,6 +14,7 @@
     <div class="xp-column">
       <xp-editor active="index.html" >
         	<script id="index.html" highlight="2-23" type="application/octetstream" src="005/index.html"></script>
+          <script id="app.js" highlight="1-13" type="application/octetstream" src="005/app.js"></script>
       </xp-editor>
     </div>
   
@@ -28,8 +29,11 @@
         <div class="xp-resize-row"></div>
         <div class="xp-row comments">
           <xp-annotations>
-            <header><h1>uses props instead of hard-coding value</h1></header>
-            
+            <header><h1>uses props instead of hard-coding values</h1></header>
+            <details>
+              <p>What good is a custom component if it has the content hard-coded into it?</p>
+              <p>React gives us a method for passing data into components, called <pre>props</pre></p>
+            </details>
           </xp-annotations>
         </div>
       </body>
