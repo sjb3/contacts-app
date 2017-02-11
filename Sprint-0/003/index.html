@@ -1,0 +1,31 @@
+<meta charset="utf-8" />
+
+<h2>Contacts</h2>
+<div id="root"></div>
+<!-- Load Babel -->
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<!-- exposed as React -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
+
+<!-- exposed as ReactDOM -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
+
+<script type="text/babel">
+
+// We can create a class when our component grows more complex
+class Contact extends React.Component {
+
+  // every component must have a render method
+  // render must return a react element (JSX gets turned into a react element)
+  render() {
+    return <div>Albert Einstein</div>;
+  }
+}
+
+ReactDOM.render(
+  // back to JS to demonstrate how to use a class
+  React.createElement(Contact),
+  document.getElementById('root')
+)
+</script>

@@ -1,0 +1,27 @@
+<meta charset="utf-8" />
+
+<h2>Contacts</h2>
+<div id="root"></div>
+<!-- Load Babel -->
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<!-- exposed as React -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
+
+<!-- exposed as ReactDOM -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
+
+<script type="text/babel">
+
+class Contact extends React.Component {
+  render() {
+    return <div>Albert Einstein</div>;
+  }
+}
+
+ReactDOM.render(
+  // Using JSX we can put our Component inside angled brackets
+  <Contact />,
+  document.getElementById('root')
+)
+</script>

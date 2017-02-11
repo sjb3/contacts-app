@@ -1,0 +1,26 @@
+<meta charset="utf-8" />
+
+<h2>Contacts</h2>
+<div id="root"></div>
+<!-- We are including Babel (an ES6 to ES5 transpiler) so we can write ES6 -->
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<!-- This grabs React and exposes it globally as "React" -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
+
+<!-- This enables React to render for web browsers and is exposed as "ReactDOM" -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
+
+<script type="text/babel">
+
+// Using pure JavaScript we use createElement to create a representation of our DOM node
+// React.createElement(component, [props], [...children])
+
+// Using ReactDOM, we insert our representation, called a "react element", into our DOM tree
+// ReactDOM.render(element, container, [callback])
+
+ReactDOM.render(
+  React.createElement('div', {}, 'Albert Einstein'),
+  document.getElementById('root')
+)
+</script>

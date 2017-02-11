@@ -1,0 +1,28 @@
+<meta charset="utf-8" />
+
+<h2>Contacts</h2>
+<div id="root"></div>
+<!-- Load Babel -->
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<!-- exposed as React -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
+
+<!-- exposed as ReactDOM -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
+
+<script type="text/babel">
+
+
+// Using ReactDOM, we insert our representation, called a "react element", into our DOM tree
+// ReactDOM.render(element, container, [callback])
+
+// We can save time and improve readability by using JSX
+// The included Babel transpiler will turn this into JS that uses createElement
+const contact = <div>Albert Einstein</div>;
+
+ReactDOM.render(
+  contact,
+  document.getElementById('root')
+)
+</script>
