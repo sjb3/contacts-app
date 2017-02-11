@@ -14,6 +14,7 @@
     <div class="xp-column">
       <xp-editor active="index.html" >
         	<script id="index.html" highlight="7-28,31-44" type="application/octetstream" src="003/index.html"></script>
+          <script id="app.js" highlight="1-13" type="application/octetstream" src="003/app.js"></script>
       </xp-editor>
     </div>
   
@@ -29,7 +30,13 @@
         <div class="xp-row comments">
           <xp-annotations>
             <header><h1>sort contacts on render without mutation</h1></header>
-            
+            <details>
+              <p>Now that we have dynamically generated contacts we are going to 
+              sort them, while being careful not to mutate the data source.</p>
+
+              <p>In React and Redux, we like to treat most data sources as immutable 
+              because it can lead to shared state bugs</p>
+            </details>
           </xp-annotations>
         </div>
       </body>

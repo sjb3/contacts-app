@@ -1,37 +1,34 @@
-
-    <!DOCTYPE html>
-    <html xp-run-server-url="https://xpla.org">
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title>Components in Components</title>
-        <script src="https://xpla.org/static/js/slide_loader.3.0.0.js"></script>
-      </head>
-      <body class="xp-slide">
-        <div class="xp-row with-comments">
-          
-    
-    <div class="xp-column">
-      <xp-editor active="index.html" >
-        	<script id="index.html" highlight="1-34" type="application/octetstream" src="001/index.html"></script>
-      </xp-editor>
+<!DOCTYPE html>
+<html xp-run-server-url="https://xpla.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Component-ception</title>
+    <script src="https://xpla.org/static/js/slide_loader.3.0.0.js"></script>
+  </head>
+  <body class="xp-slide">
+    <div class="xp-row with-comments">
+      <div class="xp-column">
+        <xp-editor active="index.html" >
+            <script id="index.html" highlight="1-25" type="application/octetstream" src="001/index.html"></script>
+          	<script id="app.js" highlight="1-13" type="application/octetstream" src="001/app.js"></script>
+        </xp-editor>
+      </div>
+      <div class="xp-resize-column"></div>
+      <div class="xp-column">
+        <xp-preview runner="html"></xp-preview>
+      </div>
     </div>
-  
-    <div class="xp-resize-column"></div>
-    
-    <div class="xp-column">
-      <xp-preview runner="html"></xp-preview>
+    <div class="xp-resize-row"></div>
+    <div class="xp-row comments">
+      <xp-annotations>
+        <header><h1>create &lt;ContactList&gt; Component to contain &lt;Contact&gt;s</h1></header>
+        <details>
+          React is all about composability. You create components for small pieces of the UI, 
+          such as a &lt;SearchBox&gt; and &lt;DropDown&gt; and compose them into larger components 
+          such as &lt;Header&gt; or &lt;HomePage&gt;.
+        </details>
+      </xp-annotations>
     </div>
-  
-  
-        </div>
-        <div class="xp-resize-row"></div>
-        <div class="xp-row comments">
-          <xp-annotations>
-            <header><h1>create <ContactList> Component to contain <Contact>s</h1></header>
-            
-          </xp-annotations>
-        </div>
-      </body>
-    </html>
-  
+  </body>
+</html>

@@ -5,47 +5,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
 
-<script type="text/babel">
-class Contact extends React.Component {
-  render() {
-    return <div>{this.props.name}</div>;
-  }
-}
-
-// new component to contain all of our contacts
-class ContactList extends React.Component {
-  render() {
-    return (
-      <div>
-        <h2>Contacts List</h2>
-        {
-          // this.props is an array so can map an array of objects to an array of Contacts
-          this.props.contacts.map(contact => {
-            // React needs help knowing which elements to re-render
-            return <Contact name={contact.name} key={contact.name}/>
-          })
-        }
-      </div>
-    );
-  }
-}
-
-// here's the data source for our contacts list. we've added some fields we'll need later.
-const contacts = [
-  {
-    name: 'Albert Einstein',
-    planet: 'Earth',
-    isFavorite: true
-  }, {
-    name: 'Steve Jobs',
-    planet: 'Earth',
-    isFavorite: false
-  }
-];
-
-ReactDOM.render(
-  // pass in the list of contacts as an attribute/prop to the ContactList
-  <ContactList contacts={contacts}/>,
-  document.getElementById('root')
-)
-</script>
+<script type="text/babel" src="app.js"></script>
