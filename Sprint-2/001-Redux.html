@@ -14,6 +14,7 @@
     <div class="xp-column">
       <xp-editor active="index.html" >
         	<script id="index.html" highlight="1-59" type="application/octetstream" src="001/index.html"></script>
+          <script id="app.js" highlight="1-13" type="application/octetstream" src="001/app.js"></script>
       </xp-editor>
     </div>
   
@@ -29,7 +30,24 @@
         <div class="xp-row comments">
           <xp-annotations>
             <header><h1>uses Redux for holding state and managing rendering</h1></header>
-            
+            <details>
+              <p>Managing application state is <emphasis>hard</emphasis>. 
+              We are going to use <strong>Redux</strong> to manage our application state.</p>
+
+              <p>Redux has a few concepts we need to learn.
+                <dl>
+                  <dt>State</dt>
+                  <dd>The entire state of your application, represented as a single value (typically an object)</dd>
+                  <dt>Reducer</dt>
+                  <dd>Pure function that accepts state and an action, and returns a new state</dd>
+                  <dt>Action</dt>
+                  <dd>An "action" in Redux is simply an object with a "type" field, and optionally more fields.</dd>
+                  <dt>Action Creator</dt>
+                  <dd>Often we use a function to create an action, known as an Action Creator</dd>
+                </dl>
+              </p>
+
+            </details>
           </xp-annotations>
         </div>
       </body>
