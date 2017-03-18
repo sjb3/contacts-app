@@ -11,13 +11,26 @@
           body {
             margin: 5rem;
           }
-          a[hhref] {
+          /*a[href] {
             color: #aaa;
-          }
+          }*/
+
+          header aside { font-size: 20px; }
+          aside { display: inline-block; }
+          aside + aside { float: right; }
+          /*aside.image img { width: 50px; }*/
+          aside.text p { margin: 0 0 6px 0; }
         </style>
       </head>
       <body style="text-align: center">
         <div style="min-width: 60vw; margin: 0 auto; display:inline-block; width: auto;text-align: left">
+          <header class="row">
+            <aside class="image"><img src="devmeetings_logo.jpg" alt=""></aside>
+            <aside class="text">
+              <p><a href="https://twitter.com/ryanewing">@ryanewing</a></p>
+              <p style="font-size: 16px;">Seattle, April XX 2017</p>
+            </aside>
+          </header>
           <h1 style="text-align: center">React Workshop</h1>
           <h3 style="text-align: center; color: #aaa;">01 01 2017</h3>
           <h3 style="text-align: center; color: #aaa;">ryanewing.github.io/contacts-app</h3>
