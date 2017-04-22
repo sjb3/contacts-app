@@ -1,23 +1,30 @@
 <meta charset="utf-8" />
 
-<h2>Contacts</h2>
+<h2>Traveller's journal</h2>
 <div id="root"></div>
 
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
 
+
 <script type="text/babel">
-class Contact extends React.Component {
+class Product extends React.Component {
   render() {
     // Components have a "props" property. This is how we send data into a Component.
-    return <div>{this.props.name}</div>;
+    return (
+    <div>
+      {this.props.price}<br/>
+      {this.props.desc}<br/>
+      <img src={this.props.image}/>
+    </div>
+    )
   }
 }
 
 ReactDOM.render(
   // An HTML attribute on a JSX element will show up in "this.props" in a Component
-  <Contact name="Albert Einstein" />,
+  <Product price="$100" image="kyoto.jpg" desc="Kyoto, Japan" />,
   document.getElementById('root')
 )
 </script>
