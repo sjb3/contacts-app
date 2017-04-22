@@ -1,5 +1,6 @@
 <meta charset="utf-8" />
-
+<link rel="styleheet" href="style.css"></link>
+<title>Traveller's journal</title>
 <h2 className="title">Traveller's journal</h2>
 <div id="root"></div>
 
@@ -8,7 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
 <script src="https://unpkg.com/redux@3.6.0/dist/redux.min.js"></script>
 
-<link rel="styleheet" href="style.css"></link>
+<body>
 <script type="text/babel">
   const initialState = {
     products : [
@@ -103,7 +104,7 @@ class ProductList extends React.Component {
 
   return (
     <div>
-      <h4><em>Recent Destination</em></h4>
+      <h2><em>Recent Destination</em></h2>
       Search:
       <input type="text" value={this.props.filters.search} onChange={this.setSearch} />
       <br />
@@ -140,3 +141,4 @@ const App = () => {
 store.subscribe(() => {ReactDOM.render(<App />, document.getElementById('root'))});
 store.dispatch({type: 'START'});
 </script>
+</body>
