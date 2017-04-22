@@ -1,6 +1,6 @@
 <meta charset="utf-8" />
 
-<h2>Traveller's journal</h2>
+<h2 className="title">Traveller's journal</h2>
 <div id="root"></div>
 
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
@@ -8,6 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
 <script src="https://unpkg.com/redux@3.6.0/dist/redux.min.js"></script>
 
+<link rel="styleheet" href="style.css"></link>
 <script type="text/babel">
   const initialState = {
     products : [
@@ -15,31 +16,28 @@
         price: "$100",
         image: "./pix/kyoto.jpg",
         desc: "Kyoto, Japan",
-        planet: "Earth",
-        isFavorite: false
+        planet: "Earth"
       },
       {
         price: "$200",
         image: "./pix/paris.jpg",
         desc: "Paris, France",
-        planet: "Earth",
-        isFavorite: true
+        planet: "Earth"
       },
       {
         price: "$300",
         image: "./pix/hk.jpg",
         desc: "HK, China",
-        planet: "Earth",
-        isFavorite: true
+        planet: "Earth"
     },
     {
         price: "$1 million",
         image: "./pix/moon.jpg",
-        desc: "Mon",
-        planet: "Solar System",
-        isFavorite: true
+        desc: "Moon",
+        planet: "Solar System"
     },
     ],
+    favorites: [],
     filters: {onlyEarth: false, search: ''}
   }
 
@@ -49,38 +47,44 @@
       return Object.assign({}, state, {
         filters: { onlyEarth: action.value, search: state.filters.search }
       })
-
     case 'SET_SEARCH':
       return Object.assign({}, state, {
         filters: { onlyEarth: state.filters.onlyEarth, search: action.value }
       })
-
+    case 'ADD_FAVORITE':
+      console.log(action);
+      return Object.assign({}, state, {
+        favorites: state.favorites.concat(action.product)
+      })
     default:
       return state;
     }
   }
 
   const store = Redux.createStore(reducer);
-
-  class Product extends React.Component {
-    render() {
-      return (
+// more ES6
+  const Product = ({desc, price, image}) =>
+    (
       <div>
-        {this.props.desc}<br />
-        {this.props.price}<br />
-        <img src={this.props.image} /><br />
+      {desc}<br />
+      {price}<br />
+      <img src={image} />
       </div>
-      )
-    }
-  }
+    )
+
+  const FavoriteList = ({products}) => (
+    <div>
+      <h3><em>My-Favorites</em></h3>
+      { products.map( product => <Product desc={product.desc} key={product.desc} price={product.price} image={product.image} />)}
+    </div>
+  )
 
 class ProductList extends React.Component {
-  handleChange = (event) => {
-    this.props.setEarthFilter(event.target.checked);
-  }
-  setSearch = (event) => {
-    this.props.setSearch(event.target.value);
-  }
+  handleChange = (event) => this.props.setEarthFilter(event.target.checked);
+
+  setSearch = (event) => this.props.setSearch(event.target.value);
+
+  addFavorite = (product) => this.props.addFavorite(product);
 
   render() {
     const search = this.props.filters.search;
@@ -104,24 +108,35 @@ class ProductList extends React.Component {
       <input type="text" value={this.props.filters.search} onChange={this.setSearch} />
       <br />
       <input type="checkbox" checked={this.props.filters.onlyEarth} onChange={this.handleChange} />
+
       Only Earth
-      {filtered.map(product => <Product desc={product.desc} key={product.desc} price={product.price} image={product.image}/>)}
+      {filtered.map( product => (
+        <a href="#" onClick={this.addFavorite.bind(null, product)} key={product.desc}>
+          <Product desc={product.desc} price={product.price} image={product.image}/>
+        </a>
+      ))}
       {`${filtered.length} shown, ${this.props.products.length - filtered.length} hidden`}
-    </div>
-  );
+      </div>
+    );
   }
 }
 
-store.subscribe(() => {
-  ReactDOM.render(
+const App = () => {
+  return (
+    // pass the addFavorite redux action into the ContactList
+  <div>
     <ProductList
       products={store.getState().products}
       filters={store.getState().filters}
-      setEarthFilter={onlyEarth => store.dispatch({type: 'SET_FILTER', value:onlyEarth})}
+      setEarthFilter={onlyEarth => store.dispatch({type: 'SET_FILTER', value: onlyEarth})}
       setSearch={text => store.dispatch({type: 'SET_SEARCH', value: text})}
-      />,
-      document.getElementById('root')
+      addFavorite={product => store.dispatch({type: 'ADD_FAVORITE', product})}
+    />
+    <FavoriteList products={store.getState().favorites} />
+  </div>
   )
-});
-store.dispatch({type: 'START'})
+};
+
+store.subscribe(() => {ReactDOM.render(<App />, document.getElementById('root'))});
+store.dispatch({type: 'START'});
 </script>
