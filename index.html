@@ -6,56 +6,122 @@
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
-
+<script src="https://unpkg.com/redux@3.6.0/dist/redux.min.js"></script>
 
 <script type="text/babel">
-class Product extends React.Component {
-  render() {
-    // Components have a "props" property. This is how we send data into a Component.
-    return (
-      <div>
-      {this.props.desc}<br />
-      {this.props.price}<br />
-      <img src={this.props.image} /><br />
-      </div>
-    )
+  const initialState = {
+    products : [
+      {
+        price: "$100",
+        image: "./pix/kyoto.jpg",
+        desc: "Kyoto, Japan",
+        planet: "Earth",
+        isFavorite: false
+      },
+      {
+        price: "$200",
+        image: "./pix/paris.jpg",
+        desc: "Paris, France",
+        planet: "Earth",
+        isFavorite: true
+      },
+      {
+        price: "$300",
+        image: "./pix/hk.jpg",
+        desc: "HK, China",
+        planet: "Earth",
+        isFavorite: true
+    },
+    {
+        price: "$1 million",
+        image: "./pix/moon.jpg",
+        desc: "Mon",
+        planet: "Solar System",
+        isFavorite: true
+    },
+    ],
+    filters: {onlyEarth: false, search: ''}
   }
-}
+
+  function reducer(state = initialState, action) {
+    switch (action.type) {
+    case 'SET_FILTER':
+      return Object.assign({}, state, {
+        filters: { onlyEarth: action.value, search: state.filters.search }
+      })
+
+    case 'SET_SEARCH':
+      return Object.assign({}, state, {
+        filters: { onlyEarth: state.filters.onlyEarth, search: action.value }
+      })
+
+    default:
+      return state;
+    }
+  }
+
+  const store = Redux.createStore(reducer);
+
+  class Product extends React.Component {
+    render() {
+      return (
+      <div>
+        {this.props.desc}<br />
+        {this.props.price}<br />
+        <img src={this.props.image} /><br />
+      </div>
+      )
+    }
+  }
 
 class ProductList extends React.Component {
+  handleChange = (event) => {
+    this.props.setEarthFilter(event.target.checked);
+  }
+  setSearch = (event) => {
+    this.props.setSearch(event.target.value);
+  }
+
   render() {
-    const sorted = this.props.products.slice().sort((a, b) => {
-      return a.desc > b.desc;
+    const search = this.props.filters.search;
+    const matchSearch = this.props.products.filter( product => {
+      return product.desc.toLowerCase().includes(search.toLowerCase());
+    });
+
+    const sorted = matchSearch.sort((a, b) => a.desc > b.desc);
+    const filtered = sorted.filter( product => {
+      if (this.props.filters.onlyEarth) {
+        return product.planet === 'Earth' ? true: false;
+      } else {
+        return true;
+      }
     })
 
   return (
     <div>
       <h4><em>Recent Destination</em></h4>
-      {
-        sorted.map( product => {
-          return <Product desc={product.desc} key={product.desc} image={product.image} price={product.price}/>
-        })
-      }
+      Search:
+      <input type="text" value={this.props.filters.search} onChange={this.setSearch} />
+      <br />
+      <input type="checkbox" checked={this.props.filters.onlyEarth} onChange={this.handleChange} />
+      Only Earth
+      {filtered.map(product => <Product desc={product.desc} key={product.desc} price={product.price} image={product.image}/>)}
+      {`${filtered.length} shown, ${this.props.products.length - filtered.length} hidden`}
     </div>
-    );
+  );
   }
 }
 
-const products = [
-  {
-    price: "$100",
-    image: "kyoto.jpg",
-    desc: "Kyoto, Japan"
-  },
-  {
-    price: "$200",
-    image: "paris.jpg",
-    desc: "Paris, France"
-  }
-];
-
-ReactDOM.render(
-  <ProductList products={products} />,
-  document.getElementById('root')
-)
+store.subscribe(() => {
+  ReactDOM.render(
+    <ProductList
+      products={store.getState().products}
+      filters={store.getState().filters}
+      setEarthFilter={onlyEarth => store.dispatch({type: 'SET_FILTER', value:onlyEarth})}
+      setSearch={text => store.dispatch({type: 'SET_SEARCH', value: text})}
+      />,
+      document.getElementById('root')
+  )
+});
+store.dispatch({type: 'START'})
 </script>
